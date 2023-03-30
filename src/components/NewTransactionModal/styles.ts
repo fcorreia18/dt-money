@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { darken } from "polished";
 
 export  const Container = styled.form`
     h2{
@@ -71,8 +72,12 @@ export const TransactionTypeContainer = styled.div`
         transition: all 0.2s;
 
         &:hover{
-            border: 1px solid #aaa;
+            border-color: ${darken(0.1,"#d7d7d7" )};
             cursor:pointer;
+        }
+
+        & svg{
+            margin: 0 1rem;
         }
     }
 `;

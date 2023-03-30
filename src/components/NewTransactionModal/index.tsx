@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Container, TransactionTypeContainer } from './styles';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
@@ -8,6 +8,7 @@ interface HandleModalActions {
 }
 
 export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRequestClose }) => {
+    const [transactionType, setTransactionType] = useState("deposit");
     return (
         <ReactModal
             isOpen={isOpen}
