@@ -1,8 +1,10 @@
 import React from 'react';
 import { Container } from './styles';
+import { api } from '../../services/api';
 
 
 export const TransactionsTable: React.FC = () => {
+    const data = api.get("transactions").then(response => response.data)
     return (
         <Container>
             <table>
