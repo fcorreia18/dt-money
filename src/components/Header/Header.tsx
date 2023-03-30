@@ -4,17 +4,12 @@ import React, { useState } from 'react';
 import { Container, Content } from './styles';
 import ReactModal from 'react-modal';
 
+interface ModalProps {
+    onModalOpen:()=>void;
+}
+export const Header: React.FC<ModalProps> = ({onModalOpen}) => {
 
-export const Header: React.FC = () => {
-    const [isNewTransactionModal, setIsNewTransactionModal ] = useState(false);
 
-    function handleOpenNewTransactionModal(){
-        setIsNewTransactionModal(true);
-    }
-
-    function handleCloseNewTransactionModal(){
-        setIsNewTransactionModal(false);
-    }
     return (
         <Container>
             <Content>
@@ -26,14 +21,8 @@ export const Header: React.FC = () => {
                         style={{ color: "white", borderRadius: "50%"}} />
                     dt money
                 </span>
-                <button type='button' onClick={handleOpenNewTransactionModal}>nova transação</button>
-                <ReactModal 
-                isOpen={isNewTransactionModal}
-                onRequestClose={handleCloseNewTransactionModal}
-                >
-                    <h2>Olá mundo</h2>
-
-                </ReactModal>
+                <button type='button' onClick={onModalOpen}>nova transação</button>
+              
             </Content>
         </Container>
 
