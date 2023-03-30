@@ -6,7 +6,37 @@ export const Container = styled.div`
 
     table{
         width:100%;
-        table-spacing: 0 0.5rem;
+        border-spacing: 0 0.5rem;
+
+        th{
+        color:var(--text-body);
+        font-weigth:400;
+        text-align:center;
+        line-height:1.5rem;
+        }
+
+        td{
+            text-align:left;
+            padding:1rem 2rem;
+            border:0;
+            background: var(--shape);
+            color: var(--text-body);
+            border-radius:0.25rem;
+
+            &:first-child{
+                color:var(--text-title)
+                
+            }
+
+            &.withdraw{
+                color:var(--red)
+            }
+            &.deposit{
+                color:var(--green)
+            }
+        }
     }
-    
+
+   
+
 `

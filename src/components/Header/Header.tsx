@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
                         width={30} 
                         height={30} 
                         alt='dt money logo' 
-                        style={{ color: "white", backgroundColor: "29cd29", borderRadius: "50%" }} />
+                        style={{ color: "white", borderRadius: "50%"}} />
                     dt money
                 </span>
                 <button type='button'>nova transação</button>
