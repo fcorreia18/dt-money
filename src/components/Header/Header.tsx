@@ -26,11 +26,12 @@ export const Header: React.FC = () => {
                         style={{ color: "white", borderRadius: "50%"}} />
                     dt money
                 </span>
-                <button type='button'>nova transação</button>
+                <button type='button' onClick={handleOpenNewTransactionModal}>nova transação</button>
                 <ReactModal 
                 isOpen={isNewTransactionModal}
                 onRequestClose={handleCloseNewTransactionModal}
                 >
+                    <h2>Olá mundo</h2>
 
                 </ReactModal>
             </Content>
