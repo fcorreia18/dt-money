@@ -15,8 +15,8 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
             overlayClassName={"react-modal-overlay"}
             className={"react-modal-content"}
         >
-            <button className='close-button'onClick={onRequestClose} >
-            <X width={20} height={20} cursor={"pointer"} />
+            <button className='close-button' onClick={onRequestClose} >
+                <X width={20} height={20} cursor={"pointer"} />
             </button>
             <Container>
                 <h2>Cadastrar Transação</h2>
@@ -24,13 +24,12 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
                 <input type="number" placeholder='Valor' />
                 <TransactionTypeContainer>
                     <span>
-
-                    <span>
-                    <ArrowCircleUp width={30} height={30} style={{ color: "green" }} />
-                    Entrada
+                        <ArrowCircleUp width={30} height={30} style={{ color: "green" }} />
+                        Entrada
                     </span>
-                    <ArrowCircleDown width={30} height={30} style={{ color: "red" }} />
-                    Saída
+                    <span>
+                        <ArrowCircleDown width={30} height={30} style={{ color: "red" }} />
+                        Saída
                     </span>
                 </TransactionTypeContainer>
                 <input type="text" placeholder='Categoria' />
