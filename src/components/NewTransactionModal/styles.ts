@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darken } from "polished";
+import { darken, transparentize } from "polished";
 
 export  const Container = styled.form`
     h2{
@@ -56,28 +56,40 @@ export const TransactionTypeContainer = styled.div`
     grid-template-columns:1fr 1fr;
     margin: 1rem 0;
     gap: 1rem;
-   
-    & span{
-        border:1px solid #d7d7d7;
-        height: 4rem;
-        border-radius:0.25rem;
-
-        background:transparent;
-
-        display: flex;
-        align-items:center;
-        justify-content:center;
-        color:var(--text-body);
-        font-size:1rem;
-        transition: all 0.2s;
-
-        &:hover{
-            border-color: ${darken(0.1,"#d7d7d7" )};
-            cursor:pointer;
-        }
-
-        & svg{
-            margin: 0 1rem;
-        }
-    }
 `;
+
+
+interface ButtonProps{
+    isActive:boolean;
+    activeColor:"red"|"green"
+}
+
+const colors={
+    red:"#E52E4D",
+    green:"#33CC95",
+}
+export const RadioBox = styled.button<ButtonProps>`
+    border:1px solid #d7d7d7;
+    height: 4rem;
+    border-radius:0.25rem;
+
+    background:${({isActive, activeColor})=> isActive?transparentize(0.9,colors[activeColor]):"transparent"};
+    
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--text-body);
+    font-size:1rem;
+    transition: all 0.2s;
+
+    &:hover{
+        border-color: ${darken(0.1,"#d7d7d7" )};
+        cursor:pointer;
+    }
+
+    & svg{
+        margin: 0 1rem;
+    }
+`
+
+    

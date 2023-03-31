@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import { Container, TransactionTypeContainer } from './styles';
+import { Container, RadioBox, TransactionTypeContainer } from './styles';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
 interface HandleModalActions {
     isOpen: boolean,
@@ -24,14 +24,24 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
                 <input type="text" placeholder='Titulo' />
                 <input type="number" placeholder='Valor' />
                 <TransactionTypeContainer>
-                    <span>
+                    <RadioBox 
+                        isActive={ transactionType === "deposit"}
+                        activeColor="green" 
+                        onClick={()=>setTransactionType("deposit")}
+                        type='button'
+                    >
                         <ArrowCircleUp width={30} height={30} style={{ color: "green" }} />
                         Entrada
-                    </span>
-                    <span>
+                    </RadioBox >
+                    <RadioBox 
+                        isActive={transactionType === "withdraw"} 
+                        activeColor="red"
+                        onClick={()=>setTransactionType("withdraw")}
+                        type='button'
+                    >
                         <ArrowCircleDown width={30} height={30} style={{ color: "red" }} />
                         Saída
-                    </span>
+                    </RadioBox >
                 </TransactionTypeContainer>
                 <input type="text" placeholder='Categoria' />
                 <button type="submit"> Cadastrar </button>
