@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import ReactModal from 'react-modal';
 import { Container, RadioBox, TransactionTypeContainer } from './styles';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
+import { api } from '../../services/api';
 interface HandleModalActions {
     isOpen: boolean,
     onRequestClose: () => void;
@@ -9,6 +10,22 @@ interface HandleModalActions {
 
 export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRequestClose }) => {
     const [transactionType, setTransactionType] = useState("deposit");
+    const [title, setTitle] = useState<string>("");
+    const [value, setValue] = useState<number>(0);
+    const [category, setCategory] = useState<string>("");
+
+    function handleCreateNewTransaction(e:FormEvent){
+        e.preventDefault();
+        const data ={
+            title,
+            value,
+            category,
+            transactionType
+        }
+        api.post("/transactions",{
+            data
+        })
+    }
     return (
         <ReactModal
             isOpen={isOpen}
@@ -19,11 +36,23 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
             <button className='close-button' onClick={onRequestClose} >
                 <X width={20} height={20} cursor={"pointer"} />
             </button>
-            <Container>
+            <Container 
+                onSubmit={handleCreateNewTransaction}
+            >
                 <h2>Cadastrar Transação</h2>
-                <input type="text" placeholder='Titulo' />
-                <input type="number" placeholder='Valor' />
-                <TransactionTypeContainer>
+                <input type="text" 
+                placeholder='Titulo'
+                value={title} 
+                onChange={e=>setTitle(e.target.value)}
+                />
+                <input 
+                type="number" 
+                placeholder='Valor'
+                value={value} 
+                onChange={e=>setValue(Number(e.target.value))} 
+                />
+                <TransactionTypeContainer 
+                >
                     <RadioBox 
                         isActive={ transactionType === "deposit"}
                         activeColor="green" 
@@ -43,8 +72,15 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
                         Saída
                     </RadioBox >
                 </TransactionTypeContainer>
-                <input type="text" placeholder='Categoria' />
-                <button type="submit"> Cadastrar </button>
+                <input 
+                type="text" 
+                placeholder='Categoria'
+                value={category} 
+                onChange={e=>setCategory(e.target.value)} 
+                />
+                <button 
+                type="submit"
+                > Cadastrar </button>
             </Container>
 
         </ReactModal>

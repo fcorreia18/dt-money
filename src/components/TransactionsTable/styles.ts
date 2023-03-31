@@ -14,14 +14,15 @@ export const Container = styled.div`
         text-align:center;
         line-height:1.5rem;
         }
-
+        tr{
+            border-radius:0.25rem;
+        }
         td{
             text-align:left;
             padding:1rem 2rem;
             border:0;
             background: var(--shape);
             color: var(--text-body);
-            border-radius:0.25rem;
 
             &:first-child{
                 color:var(--text-title)
