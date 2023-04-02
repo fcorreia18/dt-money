@@ -1,29 +1,60 @@
+import { useContext } from 'react';
 import { Card } from './styles';
-import {ArrowCircleUp,ArrowCircleDown,CurrencyDollar} from "phosphor-react"
+import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from "phosphor-react"
+import { TransactionContext } from '../../TransactionContext';
 
 export const Summary: React.FC = () => {
+  const { transactions } = useContext(TransactionContext)
+  const summary = transactions.reduce((acc, transaction) => {
+    if (transaction.type === "deposit") {
+      acc.deposits += transaction.amount;
+      acc.total += transaction.amount;
+    } else {
+      acc.withdraws += transaction.amount;
+      acc.total -= transaction.amount;
+    }
+
+    return acc;
+  }, {
+    deposits: 0,
+    withdraws: 0,
+    total: 0
+  });
+
   return (
     <Card>
       <div>
         <header>
           <p>entradas</p>
-          <ArrowCircleUp width={30} height={30} style={{color:"green"}}/>
+          <ArrowCircleUp width={30} height={30} style={{ color: "green" }} />
         </header>
-        <strong>10000 KZ</strong>
+        <strong>{Intl.NumberFormat("pt-AO", {
+          style: "currency",
+          currency: "AOA",
+          minimumFractionDigits: 2
+        }).format(summary.deposits)}</strong>
       </div>
       <div>
         <header>
           <p>Saídas</p>
-          <ArrowCircleDown width={30} height={30} style={{color:"red"}}/>
+          <ArrowCircleDown width={30} height={30} style={{ color: "red" }} />
         </header>
-        <strong>-3000 KZ</strong>
+        <strong>-{Intl.NumberFormat("pt-AO", {
+          style: "currency",
+          currency: "AOA",
+          minimumFractionDigits: 2
+        }).format(summary.withdraws)}</strong>
       </div>
       <div className='highlight-background'>
         <header>
           <p>Total</p>
-          <CurrencyDollar  width={30} height={30} style={{color:"#fff"}}/>
+          <CurrencyDollar width={30} height={30} style={{ color: "#fff" }} />
         </header>
-        <strong>24500 KZ</strong>
+        <strong>{Intl.NumberFormat("pt-AO", {
+          style: "currency",
+          currency: "AOA",
+          minimumFractionDigits: 2
+        }).format(summary.total)}</strong>
       </div>
     </Card>
   );

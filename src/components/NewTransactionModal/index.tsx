@@ -1,8 +1,9 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import ReactModal from 'react-modal';
 import { Container, RadioBox, TransactionTypeContainer } from './styles';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
 import { api } from '../../services/api';
+import { TransactionContext } from '../../TransactionContext';
 interface HandleModalActions {
     isOpen: boolean,
     onRequestClose: () => void;
@@ -11,20 +12,23 @@ interface HandleModalActions {
 export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRequestClose }) => {
     const [transactionType, setTransactionType] = useState("deposit");
     const [title, setTitle] = useState<string>("");
-    const [value, setValue] = useState<number>(0);
+    const [amount, setAmount] = useState<number>(0);
     const [category, setCategory] = useState<string>("");
+    const {createTransaction} = useContext(TransactionContext);
 
-    function handleCreateNewTransaction(e:FormEvent){
+    async function handleCreateNewTransaction(e:FormEvent){
         e.preventDefault();
-        const data ={
-            title,
-            value,
-            category,
-            transactionType
-        }
-        api.post("/transactions",{
-            data
-        })
+       await createTransaction({
+        title,
+        amount,
+        type:transactionType,
+        category
+       })
+
+       setTitle("");
+       setAmount(0);
+       setCategory("");
+       onRequestClose();
     }
     return (
         <ReactModal
@@ -48,8 +52,8 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
                 <input 
                 type="number" 
                 placeholder='Valor'
-                value={value} 
-                onChange={e=>setValue(Number(e.target.value))} 
+                value={amount} 
+                onChange={e=>setAmount(Number(e.target.value))} 
                 />
                 <TransactionTypeContainer 
                 >

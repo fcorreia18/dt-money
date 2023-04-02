@@ -10,7 +10,7 @@ export const TransactionsTable: React.FC = () => {
         month: 'long',
         day: 'numeric'
     };
-    const transactions = useContext(TransactionContext)
+    const {transactions} = useContext(TransactionContext)
 
     return (
         <Container>
