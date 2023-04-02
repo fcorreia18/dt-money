@@ -1,9 +1,8 @@
-import React, { FormEvent, useContext, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import ReactModal from 'react-modal';
 import { Container, RadioBox, TransactionTypeContainer } from './styles';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
-import { api } from '../../services/api';
-import { TransactionContext } from '../../TransactionContext';
+import {  useTransaction } from '../../hooks/useTransaction';
 interface HandleModalActions {
     isOpen: boolean,
     onRequestClose: () => void;
@@ -14,7 +13,7 @@ export const NewTransactionModal: React.FC<HandleModalActions> = ({ isOpen, onRe
     const [title, setTitle] = useState<string>("");
     const [amount, setAmount] = useState<number>(0);
     const [category, setCategory] = useState<string>("");
-    const {createTransaction} = useContext(TransactionContext);
+    const {createTransaction} = useTransaction();
 
     async function handleCreateNewTransaction(e:FormEvent){
         e.preventDefault();

@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { Card } from './styles';
 import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from "phosphor-react"
-import { TransactionContext } from '../../TransactionContext';
+import {useTransaction } from '../../hooks/useTransaction';
 
 export const Summary: React.FC = () => {
-  const { transactions } = useContext(TransactionContext)
+  const { transactions } = useTransaction()
   const summary = transactions.reduce((acc, transaction) => {
     if (transaction.type === "deposit") {
       acc.deposits += transaction.amount;
