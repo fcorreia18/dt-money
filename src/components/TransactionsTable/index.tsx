@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import { Container } from './styles';
-import { api } from '../../services/api';
+import { TransactionContext } from '../../TransactionContext';
 
-interface Transactions {
-    id: number,
-    title: string,
-    amount: number,
-    category: string,
-    type: string,
-    createdAt: string,
-}
-export const TransactionsTable: React.FC<Transactions> = () => {
+
+export const TransactionsTable: React.FC = () => {
     const options = {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     };
-    const [transactions, setTransactions] = useState<Transactions[]>()
+    const transactions = useContext(TransactionContext)
 
-    useEffect(() => {
-        api.get("transactions").then(response => setTransactions(response.data.transactions))
-        console.log(transactions)
-    }, [])
     return (
         <Container>
             <table>
@@ -52,9 +41,6 @@ export const TransactionsTable: React.FC<Transactions> = () => {
                             }).format(new Date(transaction.createdAt))}</td>
                         </tr>
                     )}
-
-
-
                 </tbody>
             </table>
         </Container>
